@@ -1,0 +1,11 @@
+html, body {
+    margin: 0;
+    background-color: lightskyblue;
+}
+.ball {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: indianred;
+    position: absolute;
+}
