@@ -31,7 +31,9 @@ const num = randomBetween(5,25);
 		ball.id = `${i}`;
 		ball.style.left = `${xS[i]}px`;
 		ball.style.top = `${yS[i]}px`;
-		document.appendChild(ball);
+		document.body.appendChild(ball);
+		// Testing
+		let placed = document.getElementById(i);
 	}
 }());
 
