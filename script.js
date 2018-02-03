@@ -4,12 +4,6 @@ function randomBetween(low, high) {
 const num = randomBetween(5,25);
 var xS = [], yS = [], dXS = [], dYS = [];
 
-/*function populateLocationVelocity() {
-	let xS = [], yS = [], dXS = [], dYS = [];
-}*/ // Lol I should do client work nao ...
-
-// I wonder if it would be useful to assign degrees to balls, looking forward to collisions ...
-
 // Populate space and speed arrays based on "num"
 for (i = num; i > 0; i--) {
     // Add a random number within the window width and height to the arrays
