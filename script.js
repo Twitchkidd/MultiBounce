@@ -1,13 +1,14 @@
-// Bouncy ball script!
+function randomBetween(low, high) {
+	return Math.ceil(Math.random()*((high-low)-1)+low);
+}
+const num = randomBetween(5,25);
+var xS = [], yS = [], dXS = [], dYS = [];
 
-// "num" is a number between 5 and 25.
-const num = Math.ceil((Math.random()*20)+4);
+/*function populateLocationVelocity() {
+	let xS = [], yS = [], dXS = [], dYS = [];
+}*/ // Lol I should do client work nao ...
 
-// Initiate space and speed arrays
-var xS = [];
-var yS = [];
-var dXS = [];
-var dYS = [];
+// I wonder if it would be useful to assign degrees to balls, looking forward to collisions ...
 
 // Populate space and speed arrays based on "num"
 for (i = num; i > 0; i--) {
@@ -40,6 +41,7 @@ for (i = num; i > 0; i--) {
 	} else {
 		dYS.push((Math.ceil((Math.random()*4)+4)) * -1);
 	}
+	console.log(i);
 }
 
 // Create `${num}` <div class="ball"></div>s, with id="${from 1 to num}` and
@@ -78,8 +80,8 @@ setInterval(function() {
     }
 }, 16.667);
 
-
-
+// Yo check this shit out:
+// https://stackoverflow.com/questions/38709923/why-is-requestanimationframe-better-than-setinterval-or-settimeout
 
 
 
