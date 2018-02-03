@@ -1,7 +1,13 @@
 # MultiBounce
 
-2018-01-16 Most proud of any 68 lines of code I've ever written.
+Okay, so I refactored it, and don't have time to fix a few things right now, HOWEVER!
 
-2018-02-01 WOW first time I've actually touched this in like forever. Nice.
+## requestAnimationFrame()!
 
-2018-02-03 So I guess setInterval uses integer values. :\ requestAnimationFrame learnins time yaay
+Yaaay it's so much nicer! Thanks [Graham on StackOverflow!](https://stackoverflow.com/questions/38709923/why-is-requestanimationframe-better-than-setinterval-or-settimeout)
+
+And Paul Irish and CSS Tricks for everything!
+
+## General refactor!
+
+I used functions and stuff and there's an || in there and did the parentheses thing, and I think it's way more readable. Super happy! Yay!

@@ -1,9 +1,69 @@
+var xS = [], yS = [], dXS = [], dYS = [];
+
+function randomBetween(low, high) {
+	return Math.ceil(Math.random()*((high-low)-1)+low);
+}
+
+const num = randomBetween(25, 100);
+
+(function spawnLocations() {
+	for (i=num; i>0; i--) {
+		let xOut = randomBetween(0, (window.innerWidth - 40));
+		let yOut = randomBetween(0, (window.innerHeight - 40));
+		xS.push(xOut);
+		yS.push(yOut);
+	}
+}());
+
+(function initialDirections() {
+	for (i=num; i>0; i--) {
+		let dXOut = randomBetween(-10, 10);	
+		let dYOut = randomBetween(-10, 10);
+		dXS.push(dXOut);
+		dYS.push(dYOut);
+	}
+}());
+
+(function populateWindow() {
+	for (i=num; i>0; i--) {
+		let ball = document.createElement('div');
+		ball.className = "ball";
+		ball.id = `${i}`;
+		ball.style.left = `${xS[i-1]}px`;
+		ball.style.top = `${yS[i-1]}px`;
+		document.body.appendChild(ball);
+	}
+}());
+
+function animateBalls() {
+	for (i=num; i>0; i--) {
+		let ball = document.getElementById(i);
+		let leftValue = parseInt(ball.style.left, 10);
+		if ((leftValue >= (window.innerWidth - 40)) || (leftValue <= 0)) {
+			dXS[i-1] = -dXS[i-1];
+		}
+		ball.style.left = `${leftValue + dXS[i-1]}px`;
+		let topValue = parseInt(ball.style.top, 10);
+		if ((topValue >= (window.innerHeight - 40)) || (topValue <= 0)) {
+			dYS[i-1] = -dYS[i-1];
+		}
+		ball.style.top = `${topValue + dYS[i-1]}px`;
+	}
+	requestAnimationFrame(animateBalls);
+}
+requestAnimationFrame(animateBalls);
+
+// ---------------------------------------------------------------------
+// OLD CODE, FEW ISSUES LEFT, ALSO FOR THE LOLZ
+// ACTUALLY randomBetween IS NEW CODE, I'M STILL NOT GOOD AT GIT
+/*
 function randomBetween(low, high) {
 	return Math.ceil(Math.random()*((high-low)-1)+low);
 }
 const num = randomBetween(5,25);
 var xS = [], yS = [], dXS = [], dYS = [];
-
+*/
+/*
 // Populate space and speed arrays based on "num"
 for (i = num; i > 0; i--) {
     // Add a random number within the window width and height to the arrays
@@ -48,7 +108,8 @@ for (i = num; i > 0; i--) {
 	el.style.top = `${yS[num - i]}px`;
 	document.body.appendChild(el);
 }
-
+*/
+/*
 // Move each element five times per second, along a bouncy path.
 setInterval(function() {
     for (i = num; i > 0; i--) {
@@ -73,24 +134,7 @@ setInterval(function() {
         }
     }
 }, 16.667);
-
-// Yo check this shit out:
-// https://stackoverflow.com/questions/38709923/why-is-requestanimationframe-better-than-setinterval-or-settimeout
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+*/
 /*
 var b1 = document.getElementById("1");
 var worker = new Worker("move.js");
@@ -104,8 +148,6 @@ setInterval(function() {
 */
 
 /*
-var worker = new Worker('move.js');
-worker.postMessage();
 
 setTimeout(function() {
 for (i=num;i>0;i--) {
@@ -118,12 +160,4 @@ for (i=num;i>0;i--) {
     }, 200);
 }}
 , 3000);
-*/
-
-/*
-onmessage = function(e) {
-	var resultLeft = `${parseInt(e.data[0], 10) + e.data[1]}px`;
-	var resultTop = `${parseInt(e.data[2], 10) + e.data[3]}px`;
-	postMessage([resultLeft, resultTop]);
-}
 */
