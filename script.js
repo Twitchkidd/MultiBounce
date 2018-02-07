@@ -26,8 +26,9 @@ const num = randomBetween(25, 100);
 
 (function populateWindow() {
 	for (i=num; i>0; i--) {
-		let ball = document.createElement('div');
+		let ball = document.createElement('img');
 		ball.className = "ball";
+		ball.src = "./ocean.svg";
 		ball.id = `${i}`;
 		ball.style.left = `${xS[i-1]}px`;
 		ball.style.top = `${yS[i-1]}px`;
