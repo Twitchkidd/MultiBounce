@@ -1,72 +1,50 @@
-// initialize arrays for position and velocity
-var xS = [],
-	yS = [],
-	dXS = [],
-	dYS = [];
+// ? rndBw: randomBetween (low, high)
+const rndBw = (l, h) => Math.ceil(Math.random() * (h - l - 1) + l);
 
-function randomBetween(low, high) {
-	return Math.ceil(Math.random() * (high - low - 1) + low);
-}
+// ? rndCoord: randomCoordinate (dimension)
+const rndCoord = dim =>
+	dim === 'X'
+		? rndBw(0, window.innerWidth - (SIZE + 1))
+		: rndBw(0, window.innerHeight - (SIZE + 1));
 
-// initialize number of balls
-const num = randomBetween(25, 100);
+// ? pop: populate (positions)
+const pop = ps =>
+	ps.forEach((p, i) => {
+		const b = document.createElement('div');
+		b.id = `${i + 1}`;
+		b.style.left = `${p[0]}px`;
+		b.style.top = `${p[1]}px`;
+		document.body.appendChild(b);
+	});
 
-// populate position arrays
-(function spawnLocations() {
-	for (i = num; i > 0; i--) {
-		let xOut = randomBetween(0, window.innerWidth - 40);
-		let yOut = randomBetween(0, window.innerHeight - 40);
-		xS.push(xOut);
-		yS.push(yOut);
-	}
-})();
+const SIZE = 40;
+const BALLS = rndBw(8, 16);
 
-// populate velocity arrays
-(function initialDirections() {
-	for (i = num; i > 0; i--) {
-		let dXOut = randomBetween(-10, 10);
-		let dYOut = randomBetween(-10, 10);
-		dXS.push(dXOut);
-		dYS.push(dYOut);
-	}
-})();
+const ps = Array(BALLS)
+	.fill()
+	.map(b => [rndCoord('X'), rndCoord('Y')]);
 
-// DOM population
-(function populateWindow() {
-	for (i = num; i > 0; i--) {
-		let ball = document.createElement('div');
-		ball.className = 'ball';
-		ball.id = `${i}`;
-		ball.style.left = `${xS[i - 1]}px`;
-		ball.style.top = `${yS[i - 1]}px`;
-		document.body.appendChild(ball);
-	}
-})();
+const vs = Array(BALLS)
+	.fill()
+	.map(b => [rndBw(-10, 10), rndBw(-10, 10)]);
 
-// calculate move,
-function animateBalls() {
-	for (i = num; i > 0; i--) {
-		let ball = document.getElementById(i);
-		let leftValue = parseInt(ball.style.left, 10);
-		if (leftValue >= window.innerWidth - 40 || leftValue <= 0) {
-			dXS[i - 1] = -dXS[i - 1];
+pop(ps);
+
+// ? mvAll: moveAll ()
+const mvAll = () => {
+	for (i = 0; i < BALLS; i++) {
+		const b = document.getElementById(`${i + 1}`);
+		const left = parseInt(b.style.left, 10);
+		if (left > window.innerWidth - (SIZE + vs[i][0]) || left <= 0) {
+			vs[i][0] = -vs[i][0];
 		}
-		ball.style.left = `${leftValue + dXS[i - 1]}px`;
-		let topValue = parseInt(ball.style.top, 10);
-		if (topValue >= window.innerHeight - 40 || topValue <= 0) {
-			dYS[i - 1] = -dYS[i - 1];
+		b.style.left = `${left + vs[i][0]}px`;
+		const top = parseInt(b.style.top, 10);
+		if (top > window.innerHeight - (SIZE + vs[i][1]) || top <= 0) {
+			vs[i][1] = -vs[i][1];
 		}
-		ball.style.top = `${topValue + dYS[i - 1]}px`;
+		b.style.top = `${top + vs[i][1]}px`;
 	}
-	requestAnimationFrame(animateBalls);
-}
-requestAnimationFrame(animateBalls);
-
-/*
- * I feel like describing the initial conditions more succinctly will be one,
- * then abstract out things a little, and it might work to calculate ... I mean
- * there has to be some amount of work you can offset, like calc the next BALL
- * number of positions for ball 1 in one frame, then BALL number of positions
- * for ball 2 in the next or something, and def smush the vectors, and then
- * open a branch maybe for canvas?
- */
+	requestAnimationFrame(mvAll);
+};
+requestAnimationFrame(mvAll);

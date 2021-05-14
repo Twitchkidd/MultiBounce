@@ -1,13 +1,20 @@
-html, body {
-    margin: 0;
-    background-color: lightskyblue;
-    box-sizing: border-box;
+html,
+body {
+	margin: 0;
+	background-color: lightskyblue;
+	box-sizing: border-box;
 }
-*, *:before, *:after { box-sizing: inherit; }
-.ball {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    background-color: indianred;
-    position: absolute;
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+div {
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+	background-color: indianred;
+	position: absolute;
 }
